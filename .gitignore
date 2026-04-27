@@ -7,5 +7,4 @@ public/
 .deploy*/
 _multiconfig.yml
 .vercel
-package-lock.json
 .claude/

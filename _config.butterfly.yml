@@ -31,6 +31,7 @@ code_word_wrap: false
 social:
   fab fa-github: https://github.com/guiwzh || Github || '#24292e'
   fas fa-envelope: mailto:21210720135@m.fudan.edu.cn || Email || '#4a7dbe'
+  fas fa-rss: /atom.xml || RSS || '#ff8800'
 
 # Image (圖片設置)
 # --------------------------------------
@@ -47,13 +48,13 @@ avatar:
 disable_top_img: false
 
 # The banner image of home page
-index_img: https://picsum.photos/seed/wangzhe-home/1920/1080
+index_img: /img/cover.svg
 
 # If the banner of page not setting, it will show the top_img
-default_top_img: https://picsum.photos/seed/wangzhe-default/1920/1080
+default_top_img: /img/cover.svg
 
 # The banner image of archive page
-archive_img: https://picsum.photos/seed/wangzhe-archive/1920/1080
+archive_img: /img/cover.svg
 
 # If the banner of tag page not setting, it will show the top_img
 # note: tag page, not tags page (子標籤頁面的 top_img)

@@ -12,7 +12,7 @@ timezone: 'Asia/Shanghai'
 
 # URL 设置 -------------------------------------------------------------
 # url 在部署到 Vercel 后改成你的实际网址（比如 https://xxx.vercel.app）
-url: https://example.com
+url: https://myblog-zeta-ruby-32.vercel.app
 permalink: posts/:title/
 permalink_defaults:
 pretty_urls:

@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#5B8DEF"/>
+      <stop offset="100%" stop-color="#1F3A8A"/>
+    </linearGradient>
+    <pattern id="dots" x="0" y="0" width="32" height="32" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1.2" fill="#ffffff" fill-opacity="0.16"/>
+    </pattern>
+    <radialGradient id="glow" cx="30%" cy="40%" r="55%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.25"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1920" height="1080" fill="url(#bg)"/>
+  <rect width="1920" height="1080" fill="url(#dots)"/>
+  <rect width="1920" height="1080" fill="url(#glow)"/>
+  <g opacity="0.55">
+    <rect x="200"  y="280" width="100" height="14" rx="3" fill="#C084FC"/>
+    <rect x="312"  y="280" width="180" height="14" rx="3" fill="#60A5FA"/>
+    <rect x="504"  y="280" width="80"  height="14" rx="3" fill="#F472B6"/>
+    <rect x="240"  y="318" width="60"  height="14" rx="3" fill="#FBBF24"/>
+    <rect x="312"  y="318" width="220" height="14" rx="3" fill="#34D399"/>
+    <rect x="240"  y="356" width="280" height="14" rx="3" fill="#94A3B8"/>
+    <rect x="200"  y="430" width="100" height="14" rx="3" fill="#C084FC"/>
+    <rect x="312"  y="430" width="120" height="14" rx="3" fill="#60A5FA"/>
+    <rect x="444"  y="430" width="100" height="14" rx="3" fill="#FBBF24"/>
+    <rect x="280"  y="468" width="60"  height="14" rx="3" fill="#34D399"/>
+    <rect x="352"  y="468" width="200" height="14" rx="3" fill="#94A3B8"/>
+    <rect x="1300" y="640" width="120" height="14" rx="3" fill="#C084FC"/>
+    <rect x="1432" y="640" width="160" height="14" rx="3" fill="#60A5FA"/>
+    <rect x="1340" y="678" width="80"  height="14" rx="3" fill="#FBBF24"/>
+    <rect x="1432" y="678" width="220" height="14" rx="3" fill="#34D399"/>
+    <rect x="1664" y="678" width="60"  height="14" rx="3" fill="#F472B6"/>
+    <rect x="1340" y="716" width="180" height="14" rx="3" fill="#94A3B8"/>
+    <rect x="1300" y="770" width="100" height="14" rx="3" fill="#C084FC"/>
+    <rect x="1412" y="770" width="280" height="14" rx="3" fill="#60A5FA"/>
+  </g>
+  <g fill="#ffffff" fill-opacity="0.06">
+    <circle cx="1620" cy="280" r="180"/>
+    <circle cx="280"  cy="800" r="130"/>
+    <circle cx="1100" cy="200" r="50"/>
+  </g>
+</svg>

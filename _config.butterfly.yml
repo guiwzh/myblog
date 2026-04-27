@@ -41,7 +41,7 @@ favicon: /img/favicon.png
 
 # Avatar (頭像) - 使用 Gravatar，关联到你的邮箱；想换成自己的照片就把 img 改成图片 URL
 avatar:
-  img: https://www.gravatar.com/avatar/e9cde7600594d6ded2d3ecbaa94e04b9?d=mp&s=400
+  img: /img/头像.jpg
   effect: true
 
 # Disable all banner image

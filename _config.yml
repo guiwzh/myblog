@@ -92,6 +92,25 @@ search:
 # 主题的详细配置在 _config.butterfly.yml 里
 theme: butterfly
 
+# Sitemap (SEO) -------------------------------------------------------
+sitemap:
+  path: sitemap.xml
+  rel: false
+  tags: true
+  categories: true
+
+# RSS 订阅 -------------------------------------------------------------
+feed:
+  enable: true
+  type: atom
+  path: atom.xml
+  limit: 20
+  hub:
+  content: true
+  content_limit: 200
+  content_limit_delim: ' '
+  order_by: -date
+
 # 部署（用 Vercel 自动部署，这里留空即可）-----------------------------
 deploy:
   type: ''

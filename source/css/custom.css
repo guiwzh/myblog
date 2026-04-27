@@ -1,0 +1,65 @@
+/* ===== 自定义颜色覆盖 ===== */
+/* 主题色：清爽蓝 #5B8DEF */
+
+:root {
+  --theme-color: #5B8DEF;
+  --pseudo-hover: #5B8DEF;
+  --btn-hover-color: #FF7242;
+  --text-bg-hover: #5B8DEF;
+}
+
+/* 链接色 */
+#article-container a {
+  color: #5B8DEF;
+  border-bottom: 1px solid #5B8DEF;
+}
+#article-container a:hover {
+  color: #FF7242;
+  border-bottom-color: #FF7242;
+}
+
+/* 顶部导航高亮 */
+#nav .menus_items .menus_item_child a:hover,
+#nav .menus_items .menus_item:hover > a {
+  color: #5B8DEF !important;
+}
+
+/* 标签云 / 分类悬停 */
+#aside-content .card-tags .tags a:hover,
+#aside-content .card-categories .card-category-list li a:hover {
+  color: #5B8DEF;
+  background-color: rgba(91, 141, 239, 0.1);
+}
+
+/* 引用块 */
+blockquote {
+  border-left-color: #5B8DEF !important;
+  background-color: rgba(91, 141, 239, 0.08) !important;
+}
+
+/* 分页 */
+.pagination .page-number.current,
+#pagination .page-number.current {
+  background-color: #5B8DEF !important;
+}
+
+/* 滚动条 */
+::-webkit-scrollbar-thumb {
+  background-color: #5B8DEF;
+}
+
+/* 文章页 hr / 标题前缀图标 */
+hr::before {
+  color: #5B8DEF;
+}
+
+/* 文章卡片悬停时的蓝晕 */
+#recent-posts > .recent-post-item:hover {
+  box-shadow: 0 5px 20px rgba(91, 141, 239, 0.25);
+}
+
+/* 选中文字背景 */
+::selection {
+  background: #5B8DEF;
+  color: #fff;
+}

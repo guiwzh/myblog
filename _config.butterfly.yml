@@ -30,7 +30,7 @@ code_word_wrap: false
 #   icon: link || the description || color
 social:
   fab fa-github: https://github.com/guiwzh || Github || '#24292e'
-  fas fa-envelope: mailto:21210720135@m.fudan.edu.cn || Email || '#4a7dbe'
+  fas fa-envelope: mailto:15886306338gwz@gmail.com || Email || '#4a7dbe'
   fas fa-rss: /atom.xml || RSS || '#ff8800'
 
 # Image (圖片設置)
@@ -210,7 +210,7 @@ footer:
   owner:
     enable: true
     since: 2026
-  custom_text: 'Crafted with ☕ by Wangzhe Gui · 复旦大学'
+  custom_text: 'Crafted with ☕ by Wangzhe Gui'
   copyright: true # Copyright of theme and framework
 
 # aside (側邊欄)
@@ -228,7 +228,7 @@ aside:
     category: true
   card_author:
     enable: true
-    description: 复旦大学 · 在写代码、读论文、记录想法
+    description: 前端工程师 · 写代码、读源码、记录想法
     button:
       enable: true
       icon: fab fa-github
@@ -758,7 +758,7 @@ subtitle:
   source: false
   sub:
     - "Hi, I'm Wangzhe Gui."
-    - "复旦大学 · 在写代码、读论文、做研究"
+    - "前端工程师 · 写代码、读源码、做点东西"
     - "记录每一次思考，连接每一次灵感"
 
 # Loading Animation (加載動畫)

@@ -4,8 +4,8 @@
 # 站点基本信息（部署前请修改这里）---------------------------------------
 title: Wangzhe's Blog
 subtitle: '记录想法、研究与日常'
-description: 'Wangzhe Gui 的个人博客 · 复旦大学'
-keywords: blog, wangzhe gui, fudan, research
+description: 'Wangzhe Gui 的个人博客 · 前端工程师'
+keywords: blog, wangzhe gui, frontend, web, javascript
 author: Wangzhe Gui
 language: zh-CN
 timezone: 'Asia/Shanghai'

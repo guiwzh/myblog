@@ -11,7 +11,7 @@ cover: https://picsum.photos/seed/hello-world/800/450
 
 欢迎来到我的博客 👋
 
-我是 **Wangzhe Gui**，复旦大学的学生/研究者。这是一个用 [Hexo](https://hexo.io/zh-cn/) + [Butterfly](https://butterfly.js.org/) 搭建、部署在 [Vercel](https://vercel.com) 上的静态博客。
+我是 **Wangzhe Gui**，一名前端工程师。这是一个用 [Hexo](https://hexo.io/zh-cn/) + [Butterfly](https://butterfly.js.org/) 搭建、部署在 [Vercel](https://vercel.com) 上的静态博客。
 
 ## 为什么搭这个博客
 

@@ -26,5 +26,3 @@ top_img: https://picsum.photos/seed/wangzhe-about/1920/1080
 
 - 📧 Email：[15886306338gwz@gmail.com](mailto:15886306338gwz@gmail.com)
 - 🐙 GitHub：[@guiwzh](https://github.com/guiwzh)
-
-如果你看到这里，谢谢你的耐心。欢迎一起聊聊。

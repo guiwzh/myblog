@@ -11,8 +11,8 @@ language: zh-CN
 timezone: 'Asia/Shanghai'
 
 # URL 设置 -------------------------------------------------------------
-# url 在部署到 Vercel 后改成你的实际网址（比如 https://xxx.vercel.app）
-url: https://myblog-zeta-ruby-32.vercel.app
+# 备案通过后正式启用 https://guiwz.cn；备案期间用 OSS 静态域名预览也可改这里
+url: https://guiwz.cn
 permalink: posts/:title/
 permalink_defaults:
 pretty_urls:
@@ -111,6 +111,13 @@ feed:
   content_limit_delim: ' '
   order_by: -date
 
-# 部署（用 Vercel 自动部署，这里留空即可）-----------------------------
+# 部署到阿里云 OSS ----------------------------------------------------
+# 真正的 accessKeyId / accessKeySecret 写在 _config.deploy.yml（gitignored）
+# 部署命令：npm run deploy
 deploy:
-  type: ''
+  type: ali-oss
+  bucket: guiwz-blog
+  region: oss-cn-shanghai
+  # 以下两项在 _config.deploy.yml 中覆盖，避免提交到 git
+  accessKeyId: ''
+  accessKeySecret: ''

@@ -2,12 +2,13 @@
   "name": "myblog",
   "version": "1.0.0",
   "private": true,
-  "description": "个人博客 - Hexo + Butterfly + Vercel",
+  "description": "个人博客 - Hexo + Butterfly + 阿里云 OSS",
   "scripts": {
     "build": "hexo generate",
     "clean": "hexo clean",
     "server": "hexo server",
-    "new": "hexo new"
+    "new": "hexo new",
+    "deploy": "hexo clean && hexo generate && hexo deploy --config _config.yml,_config.deploy.yml"
   },
   "engines": {
     "node": ">=18.0.0"
@@ -17,6 +18,7 @@
   },
   "dependencies": {
     "hexo": "^7.3.0",
+    "hexo-deployer-ali-oss": "^1.0.1",
     "hexo-generator-archive": "^2.0.0",
     "hexo-generator-category": "^2.0.0",
     "hexo-generator-feed": "^4.0.0",

@@ -9,6 +9,7 @@ tags:
 categories:
   - 前端
 description: 按字段类别梳理 package.json 的每一项配置，重点对比工具库、前端应用、CLI 三类项目的差异化写法，附 exports 多入口、overrides 版本覆盖、node_modules/.bin 机制等深度解析。
+cover: https://picsum.photos/seed/packagejson-fields-guide/800/450
 ---
 
 `package.json` 是 Node.js 项目的核心配置文件，它既是 npm/yarn/pnpm 等包管理器的"清单"，也是项目元信息的载体。本文按字段类别详细介绍每个常见字段的含义、作用，并区分**工具库（library）**、**前端应用（application）**、**CLI 工具**这三类项目的不同写法。

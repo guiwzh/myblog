@@ -9,6 +9,7 @@ tags:
 categories:
   - 前端
 description: 聚焦前端异步请求中最具实战价值的三个难题——竞态条件、并发控制、取消与清理，基于 axios 与 AbortController 给出可直接落地到 React 项目的解决方案。
+cover: https://picsum.photos/seed/async-patterns-blog/800/450
 ---
 
 在前端开发中，异步请求远不止调一个接口那么简单。当你的应用复杂到一定程度，竞态条件会让搜索框显示错误的结果，不受控的并发会把服务器打崩，而组件卸载后幽灵般的 `setState` 会在控制台留下刺眼的警告。

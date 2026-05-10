@@ -8,6 +8,7 @@ tags:
 categories:
   - 前端
 description: 从浏览器底层能力出发，逐层拆解无界（wujie）的技术栈：iframe、Web Components、Shadow DOM、Proxy 代理 document，最终串成一套可落地的微前端方案。
+cover: https://picsum.photos/seed/wujie-principle/800/450
 ---
 
 > 一个基于 WebComponent 容器 + iframe 沙箱的微前端方案。本文从浏览器底层能力出发，逐层拆解无界的技术栈：iframe、Web Components、Shadow DOM、Proxy 代理 document，最终串成一套可落地的微前端方案。

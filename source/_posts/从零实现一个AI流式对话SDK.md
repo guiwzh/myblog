@@ -763,41 +763,6 @@ OpenAI 协议要求 messages 严格 `user → assistant → user → assistant` 
 
 **维护对话历史的不变量（invariant），异常时回滚未完成轮次**——这又是一条值钱的设计原则。
 
-## 十二、生产环境会遇到的坑（我自己亲历的）
-
-### 坑 1：`ECONNRESET`
-
-第一次跑代码时，我用了海外 API（DeepSeek 海外版），结果直接：
-
-```
-[cause]: Error: read ECONNRESET
-```
-
-不是代码问题，是 **TCP 连接被中间设备 reset**——大概率是网络层拦截。
-
-这个坑教会我把「网络错误」拆成至少 6 个子类：
-
-| 错误码 | 含义 | 应对策略 |
-|--------|------|---------|
-| `ENOTFOUND` | DNS 失败 | 提示「检查网络」 |
-| `ETIMEDOUT` | 连接超时 | 重试（指数退避） |
-| `ECONNREFUSED` | 服务器拒绝 | 报错，不重试 |
-| `ECONNRESET` | 连接被重置 | 重试一次，提示用户 |
-| HTTP 429 | 限流 | 解析 `Retry-After` 头延后 |
-| HTTP 5xx | 服务器错 | 重试（带退避） |
-
-**这一条放在简历上**：「基于 `error.cause.code`、HTTP status、`error.name` 三层信号设计错误分类体系，针对 6 种错误类型提供差异化重试与提示策略」。
-
-### 坑 2：JSON 解析失败不能中断整个流
-
-某些 provider 在错误时会发非标 JSON，或者把 keep-alive 心跳塞在流里。直接 `JSON.parse` 抛错就会中断整个对话。
-
-**正确做法**：单条消息解析失败 `try/catch` 吞掉，继续处理下一条。**单条坏消息不应该毁掉整个流**——这是流式编程的鲁棒性原则。
-
-### 坑 3：`stream: true` 的中文乱码
-
-我有一次忘了加 `stream: true`，跑了一段中文回复，出现了 `你好，今天��天气真好` 这种乱码。`�` 就是被切碎的 UTF-8 字节。加上 `stream: true` 立刻好了。
-
 ---
 
 ## 总结：这个项目教会我的事
@@ -817,7 +782,6 @@ OpenAI 协议要求 messages 严格 `user → assistant → user → assistant` 
 - 设计基于 async generator 的流式解析层，正确处理 chunk 边界、UTF-8 多字节切分、损坏消息容错
 - 识别 AbortError 的语义二义性，通过 cancellation context 区分用户取消 / 超时 / 网络异常 / 主动重试四种中断场景
 - 基于双层结束信号（HTTP 传输层 `done` + 业务层 `[DONE]`）设计可靠的对话终止判定
-- 基于 `error.cause.code`、HTTP status、`error.name` 三层信号实现 6 类错误分类，提供差异化重试策略
 - 维护多轮对话历史不变量（user/assistant 严格交替），异常时自动回滚未完成轮次
 
 ### 下一步还能做什么

@@ -1,5 +1,5 @@
 ---
-title: 从零实现一个 AI 流式对话 SDK：一个前端的认知升级之旅
+title: 从 ReadableStream 到 SSE：手撕一个 AI 流式对话 SDK
 date: 2026-05-15 16:00:00
 tags:
   - 前端

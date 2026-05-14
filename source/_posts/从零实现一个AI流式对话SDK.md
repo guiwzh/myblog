@@ -10,7 +10,7 @@ tags:
 categories:
   - 前端
 description: 从「流是什么」讲起，逐层拆解 ReadableStream、TextDecoder、SSE 协议、AbortController 语义二义性，最后组装成一个能在 CLI 里多轮对话的 AI SDK，沿途分享那些只有踩过坑才会真正理解的反直觉认知。
-cover: https://picsum.photos/seed/ai-streaming-sdk/800/450
+cover: https://picsum.photos/seed/ai-stream-sdk/800/450
 ---
 
 > 这篇文章记录了我从「完全没接触过流式 API」到「能在 CLI 里和 AI 实时对话」的完整过程。比起代码本身，我更想分享的是中间那些**反直觉的认知拐点**——那些只有亲手踩过坑才会真正理解的东西。

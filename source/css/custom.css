@@ -390,6 +390,27 @@ hr.custom-hr {
   margin-top: 0.25rem;
 }
 
+/* 评论加载失败降级提示 */
+.comment-fallback {
+  margin: 0.25rem 0 0;
+  padding: 0.9rem 1.1rem;
+  font-size: 0.85rem;
+  line-height: 1.75;
+  color: var(--c-text-soft);
+  background: rgba(194, 116, 30, 0.07);
+  border: 1px solid rgba(194, 116, 30, 0.22);
+  border-radius: 8px;
+}
+.comment-fallback a {
+  color: var(--theme-color);
+  font-weight: 600;
+  border-bottom: 1px solid rgba(69, 132, 199, 0.3);
+}
+.comment-fallback a:hover {
+  color: var(--theme-accent);
+  border-bottom-color: var(--theme-accent);
+}
+
 /* 暗色适配 */
 [data-theme='dark'] .comment-notice {
   color: var(--c-text-soft);
@@ -399,4 +420,13 @@ hr.custom-hr {
 [data-theme='dark'] .comment-notice::before,
 [data-theme='dark'] #post-comment .comment-headline i {
   color: #93c5fd;
+}
+[data-theme='dark'] .comment-fallback {
+  color: var(--c-text-soft);
+  background: rgba(194, 116, 30, 0.1);
+  border-color: rgba(194, 116, 30, 0.28);
+}
+[data-theme='dark'] .comment-fallback a {
+  color: #93c5fd;
+  border-bottom-color: rgba(147, 197, 253, 0.35);
 }

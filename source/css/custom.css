@@ -98,10 +98,17 @@ code, pre, kbd, tt {
   opacity: 0.9;
 }
 
-/* ----- 顶部封面蒙版：更通透 ----- */
-#page-header.full_page::before,
-#page-header::before {
-  background-color: rgba(0, 0, 0, 0.32) !important;
+/* ----- 顶部蒙版：仅文章封面图压暗（保白字可读），渐变 banner 保持纯净 ----- */
+#page-header.post-bg::before {
+  background-color: rgba(0, 0, 0, 0.34) !important;
+}
+#page-header:not(.post-bg)::before {
+  background: transparent !important;
+}
+
+/* ----- 顶部渐变 banner：底部柔和过渡到页面 ----- */
+#page-header:not(.post-bg):not(.not-top-img) {
+  box-shadow: inset 0 -60px 60px -60px rgba(0, 0, 0, 0.12);
 }
 
 /* ----- 卡片：大圆角 · 柔阴影 · 极简边框 ----- */
@@ -340,6 +347,25 @@ hr::before {
   letter-spacing: 0;
 }
 
+/* ----- 页脚：深蓝渐变 + 微光 ----- */
+#footer {
+  background: radial-gradient(760px 320px at 82% 135%, rgba(0, 113, 227, 0.3), transparent 62%),
+    linear-gradient(135deg, #0a3f86 0%, #062a63 58%, #04193d 100%) !important;
+  background-attachment: scroll !important;
+}
+#footer-wrap {
+  position: relative;
+  z-index: 1;
+  color: rgba(255, 255, 255, 0.78);
+}
+#footer-wrap a {
+  color: rgba(255, 255, 255, 0.92);
+  transition: color 0.3s var(--ease);
+}
+#footer-wrap a:hover {
+  color: #fff;
+}
+
 /* ----- 暗色模式：Apple 近黑 ----- */
 [data-theme='dark'] {
   --theme-color: #2997ff;
@@ -375,6 +401,11 @@ hr::before {
 [data-theme='dark'] ::selection {
   background: rgba(41, 151, 255, 0.28);
   color: #dbe9ff;
+}
+
+[data-theme='dark'] #footer {
+  background: radial-gradient(760px 320px at 82% 135%, rgba(41, 151, 255, 0.22), transparent 62%),
+    linear-gradient(135deg, #0c1830 0%, #070d1c 60%, #04060e 100%) !important;
 }
 
 /* ============================================

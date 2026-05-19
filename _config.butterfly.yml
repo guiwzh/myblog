@@ -48,13 +48,13 @@ avatar:
 disable_top_img: false
 
 # The banner image of home page
-index_img: /img/home.svg
+index_img: "radial-gradient(1000px 420px at 12% -10%, rgba(255,255,255,.16), transparent 60%), linear-gradient(120deg, #0a84ff 0%, #0071e3 48%, #0a4aa0 100%)"
 
 # If the banner of page not setting, it will show the top_img
-default_top_img: /img/cover.svg
+default_top_img: "radial-gradient(1000px 420px at 12% -10%, rgba(255,255,255,.16), transparent 60%), linear-gradient(120deg, #0a84ff 0%, #0071e3 48%, #0a4aa0 100%)"
 
 # The banner image of archive page
-archive_img: /img/archive.svg
+archive_img: "radial-gradient(1000px 420px at 12% -10%, rgba(255,255,255,.16), transparent 60%), linear-gradient(120deg, #0a84ff 0%, #0071e3 48%, #0a4aa0 100%)"
 
 # If the banner of tag page not setting, it will show the top_img
 # note: tag page, not tags page (子標籤頁面的 top_img)

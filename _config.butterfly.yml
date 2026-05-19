@@ -236,7 +236,7 @@ aside:
       link: https://github.com/guiwzh
   card_announcement:
     enable: true
-    content: 欢迎来到我的博客 ✨ 这里会记录我的学习笔记、研究想法和日常思考。
+    content: 欢迎来到我的博客 ✨ 这里会记录我的学习笔记、研究想法和日常思考。<br>读完文章别走开，欢迎在评论区留言交流，用 GitHub 账号登录即可评论~
   card_recent_post:
     enable: true
     limit: 5 # if set 0 will show all

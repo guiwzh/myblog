@@ -21,9 +21,9 @@
   --c-border-soft: #f0f0f3;
 
   /* 阴影：极柔、大模糊、低透明 */
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06), 0 4px 12px rgba(0, 0, 0, 0.05);
-  --shadow-md: 0 4px 18px rgba(0, 0, 0, 0.08);
-  --shadow-lg: 0 14px 44px rgba(0, 0, 0, 0.12);
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04), 0 8px 24px rgba(0, 0, 0, 0.07);
+  --shadow-md: 0 4px 14px rgba(0, 0, 0, 0.07), 0 12px 32px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 10px 28px rgba(0, 0, 0, 0.08), 0 22px 56px rgba(0, 0, 0, 0.12);
 
   /* 圆角 */
   --radius-sm: 10px;
@@ -108,10 +108,17 @@ code, pre, kbd, tt {
 #recent-posts > .recent-post-item,
 .card-widget,
 #aside-content > .card-widget {
-  border: 1px solid var(--c-border) !important;
+  border: 1px solid transparent !important;
   border-radius: var(--radius-card) !important;
   box-shadow: var(--shadow-sm) !important;
   transition: box-shadow 0.45s var(--ease), transform 0.45s var(--ease) !important;
+}
+
+/* 暗色：阴影不可见，用一道极淡边框定边界 */
+[data-theme='dark'] #recent-posts > .recent-post-item,
+[data-theme='dark'] .card-widget,
+[data-theme='dark'] #aside-content > .card-widget {
+  border-color: var(--c-border) !important;
 }
 
 #recent-posts > .recent-post-item:hover {

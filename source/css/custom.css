@@ -38,6 +38,21 @@
   --font-mono: 'SF Mono', 'JetBrains Mono', 'Cascadia Code', 'Roboto Mono', Menlo, Consolas, monospace;
 }
 
+/* ----- 页面背景：Apple 式极光渐变 ----- */
+#web_bg {
+  background:
+    radial-gradient(1100px 560px at 50% -12%, rgba(69, 132, 199, 0.12), transparent 62%),
+    radial-gradient(900px 500px at 92% 8%, rgba(194, 116, 30, 0.06), transparent 60%),
+    linear-gradient(180deg, #fbfbfd 0%, #eef1f7 100%) !important;
+}
+
+[data-theme='dark'] #web_bg {
+  background:
+    radial-gradient(1100px 560px at 50% -12%, rgba(94, 158, 255, 0.13), transparent 62%),
+    radial-gradient(900px 500px at 92% 8%, rgba(194, 116, 30, 0.07), transparent 60%),
+    linear-gradient(180deg, #0a0a0a 0%, #101016 100%) !important;
+}
+
 /* ----- 全局字体与渲染 ----- */
 body {
   font-family: var(--font-sans);

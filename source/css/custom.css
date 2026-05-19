@@ -98,17 +98,10 @@ code, pre, kbd, tt {
   opacity: 0.9;
 }
 
-/* ----- 顶部蒙版：仅文章封面图压暗（保白字可读），渐变 banner 保持纯净 ----- */
-#page-header.post-bg::before {
-  background-color: rgba(0, 0, 0, 0.34) !important;
-}
-#page-header:not(.post-bg)::before {
-  background: transparent !important;
-}
-
-/* ----- 顶部渐变 banner：底部柔和过渡到页面 ----- */
-#page-header:not(.post-bg):not(.not-top-img) {
-  box-shadow: inset 0 -60px 60px -60px rgba(0, 0, 0, 0.12);
+/* ----- 顶部封面蒙版：更通透 ----- */
+#page-header.full_page::before,
+#page-header::before {
+  background-color: rgba(0, 0, 0, 0.32) !important;
 }
 
 /* ----- 卡片：大圆角 · 柔阴影 · 极简边框 ----- */

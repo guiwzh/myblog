@@ -233,27 +233,31 @@ code, pre, kbd, tt {
   transition: all 0.3s var(--ease);
 }
 #aside-content .card-tags .tags a:hover {
-  color: var(--theme-color);
-  background-color: rgba(0, 113, 227, 0.08);
+  color: #fff !important;
+  background-color: var(--theme-color) !important;
 }
 
-/* 分类悬停 */
+/* 分类悬停：实心主题色 + 白字（避免蓝字铺蓝底看不见） */
 #aside-content .card-categories .card-category-list li a:hover {
-  color: var(--theme-color);
-  background-color: rgba(0, 113, 227, 0.06);
+  color: #fff !important;
+  background-color: var(--theme-color) !important;
+}
+#aside-content .card-categories .card-category-list li a:hover .card-category-list-count {
+  color: #fff !important;
 }
 
 /* ----- 分页 ----- */
 .pagination .page-number.current,
 #pagination .page-number.current {
   background-color: var(--theme-color) !important;
+  color: #fff !important;
   box-shadow: none;
   border-radius: var(--radius-pill);
 }
 #pagination .page-number:hover,
 .pagination .page-number:hover {
-  background-color: rgba(0, 113, 227, 0.1);
-  color: var(--theme-color);
+  background-color: var(--theme-color) !important;
+  color: #fff !important;
   border-radius: var(--radius-pill);
 }
 

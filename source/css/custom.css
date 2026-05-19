@@ -316,3 +316,21 @@ hr::before {
   background: rgba(147, 197, 253, 0.25);
   color: #dbeafe;
 }
+
+/* 评论须知 */
+.comment-notice {
+  margin: 0 0 1rem;
+  padding: 0.7rem 1rem;
+  font-size: 0.8rem;
+  line-height: 1.7;
+  color: var(--font-color, #5f6368);
+  background: rgba(69, 132, 199, 0.06);
+  border-left: 3px solid #4584c7;
+  border-radius: 6px;
+}
+
+[data-theme='dark'] .comment-notice {
+  color: #b6c0cc;
+  background: rgba(147, 197, 253, 0.08);
+  border-left-color: #93c5fd;
+}

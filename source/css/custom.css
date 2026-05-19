@@ -317,20 +317,86 @@ hr::before {
   color: #dbeafe;
 }
 
-/* 评论须知 */
-.comment-notice {
-  margin: 0 0 1rem;
-  padding: 0.7rem 1rem;
-  font-size: 0.8rem;
-  line-height: 1.7;
-  color: var(--font-color, #5f6368);
-  background: rgba(69, 132, 199, 0.06);
-  border-left: 3px solid #4584c7;
-  border-radius: 6px;
+/* ============================================
+   评论区 · Giscus
+   ============================================ */
+
+/* 分隔线收敛：评论区自身已成卡片，弱化上方 hr */
+hr.custom-hr {
+  margin: 2.5rem 0 1.5rem;
+  opacity: 0.6;
 }
 
+/* 评论区容器：与文章卡片一致的纸张悬浮感 */
+#post-comment {
+  margin-top: 0.5rem;
+  padding: 1.6rem 1.75rem 1.85rem;
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  border-radius: 12px;
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow 0.35s ease;
+}
+#post-comment:hover {
+  box-shadow: var(--shadow-md);
+}
+
+/* 评论区标题 */
+#post-comment .comment-head {
+  margin-bottom: 1.1rem;
+  padding-bottom: 0.85rem;
+  border-bottom: 1px solid var(--c-border-soft);
+}
+#post-comment .comment-headline {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-size: 1.15rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--c-text);
+}
+#post-comment .comment-headline i {
+  color: var(--theme-color);
+  font-size: 1rem;
+}
+
+/* 评论须知 */
+.comment-notice {
+  position: relative;
+  margin: 0 0 1.25rem;
+  padding: 0.8rem 1rem 0.8rem 2.4rem;
+  font-size: 0.8rem;
+  line-height: 1.75;
+  color: var(--c-text-soft);
+  background: rgba(69, 132, 199, 0.06);
+  border: 1px solid rgba(69, 132, 199, 0.16);
+  border-radius: 8px;
+}
+.comment-notice::before {
+  content: '\f05a'; /* Font Awesome info-circle */
+  font-family: 'Font Awesome 5 Free';
+  font-weight: 900;
+  position: absolute;
+  left: 0.95rem;
+  top: 0.85rem;
+  color: var(--theme-color);
+  font-size: 0.85rem;
+}
+
+/* Giscus 框架留白 */
+#giscus-wrap,
+.giscus {
+  margin-top: 0.25rem;
+}
+
+/* 暗色适配 */
 [data-theme='dark'] .comment-notice {
-  color: #b6c0cc;
-  background: rgba(147, 197, 253, 0.08);
-  border-left-color: #93c5fd;
+  color: var(--c-text-soft);
+  background: rgba(147, 197, 253, 0.07);
+  border-color: rgba(147, 197, 253, 0.16);
+}
+[data-theme='dark'] .comment-notice::before,
+[data-theme='dark'] #post-comment .comment-headline i {
+  color: #93c5fd;
 }

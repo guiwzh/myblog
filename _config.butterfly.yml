@@ -497,7 +497,7 @@ giscus:
   category_id: DIC_kwDOSONpGs4C9aBa
   theme:
     light: light
-    dark: dark
+    dark: dark_dimmed
   option:
     - data-mapping="pathname"
     - data-input-position="top"

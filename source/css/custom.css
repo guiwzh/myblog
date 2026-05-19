@@ -21,9 +21,9 @@
   --c-border-soft: #f0f0f3;
 
   /* 阴影：极柔、大模糊、低透明 */
-  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
-  --shadow-md: 0 4px 18px rgba(0, 0, 0, 0.06);
-  --shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.09);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06), 0 4px 12px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 18px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 14px 44px rgba(0, 0, 0, 0.12);
 
   /* 圆角 */
   --radius-sm: 10px;
@@ -41,9 +41,9 @@
 /* ----- 页面背景：Apple 式极光渐变 ----- */
 #web_bg {
   background:
-    radial-gradient(1100px 560px at 50% -12%, rgba(0, 113, 227, 0.12), transparent 62%),
-    radial-gradient(900px 500px at 92% 8%, rgba(194, 116, 30, 0.06), transparent 60%),
-    linear-gradient(180deg, #fbfbfd 0%, #eef1f7 100%) !important;
+    radial-gradient(1100px 560px at 50% -12%, rgba(0, 113, 227, 0.1), transparent 62%),
+    radial-gradient(900px 500px at 92% 8%, rgba(194, 116, 30, 0.05), transparent 60%),
+    linear-gradient(180deg, #eef0f4 0%, #e2e5ec 100%) !important;
 }
 
 [data-theme='dark'] #web_bg {
@@ -108,7 +108,7 @@ code, pre, kbd, tt {
 #recent-posts > .recent-post-item,
 .card-widget,
 #aside-content > .card-widget {
-  border: 1px solid var(--c-border-soft) !important;
+  border: 1px solid var(--c-border) !important;
   border-radius: var(--radius-card) !important;
   box-shadow: var(--shadow-sm) !important;
   transition: box-shadow 0.45s var(--ease), transform 0.45s var(--ease) !important;

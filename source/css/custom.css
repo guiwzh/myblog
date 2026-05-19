@@ -361,6 +361,19 @@ hr.custom-hr {
   font-size: 1rem;
 }
 
+/* 留言邀请 */
+.comment-welcome {
+  margin: 0 0 0.85rem;
+  padding: 0.9rem 1.1rem;
+  font-size: 0.92rem;
+  line-height: 1.75;
+  font-weight: 500;
+  color: var(--c-text);
+  background: linear-gradient(135deg, rgba(69, 132, 199, 0.1), rgba(194, 116, 30, 0.08));
+  border: 1px solid rgba(69, 132, 199, 0.18);
+  border-radius: 10px;
+}
+
 /* 评论须知 */
 .comment-notice {
   position: relative;
@@ -391,6 +404,11 @@ hr.custom-hr {
 }
 
 /* 暗色适配 */
+[data-theme='dark'] .comment-welcome {
+  color: var(--c-text);
+  background: linear-gradient(135deg, rgba(147, 197, 253, 0.12), rgba(194, 116, 30, 0.1));
+  border-color: rgba(147, 197, 253, 0.2);
+}
 [data-theme='dark'] .comment-notice {
   color: var(--c-text-soft);
   background: rgba(147, 197, 253, 0.07);

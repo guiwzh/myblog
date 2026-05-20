@@ -409,6 +409,65 @@ hr::before {
 }
 
 /* ============================================
+   Loading 加载页：Apple 简约风
+   ============================================ */
+
+:root {
+  --preloader-bg: #fbfbfd;
+  --preloader-color: #86868b;
+}
+[data-theme='dark'] {
+  --preloader-bg: #0a0a0a;
+  --preloader-color: #aeaeb2;
+}
+
+/* 干掉默认双方块 + 中心方块 */
+#loading-box .configure-border-1,
+#loading-box .configure-border-2,
+#loading-box .configure-core {
+  display: none !important;
+}
+
+/* 重排：竖向布局，旋转环 + 文字 */
+#loading-box .spinner-box {
+  flex-direction: column;
+  gap: 18px;
+}
+
+/* Apple 风旋转环：极细环、品牌蓝 1/3 段、流畅自旋 */
+#loading-box .spinner-box::before {
+  content: '';
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background:
+    conic-gradient(from 0deg, transparent 0deg, transparent 245deg, var(--theme-color) 360deg);
+  -webkit-mask: radial-gradient(circle, transparent calc(50% - 2.5px), #000 calc(50% - 2.5px));
+  mask: radial-gradient(circle, transparent calc(50% - 2.5px), #000 calc(50% - 2.5px));
+  animation: apple-spin 0.9s linear infinite;
+}
+@keyframes apple-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* 文字：Apple 字体、克制小字 */
+#loading-box .loading-word {
+  position: static !important;
+  margin: 0 !important;
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: var(--preloader-color);
+}
+
+/* 左右分屏退场：缓动改 Apple ease，时长略长 */
+#loading-box.loaded .loading-left-bg,
+#loading-box.loaded .loading-right-bg {
+  transition: transform 0.65s var(--ease) !important;
+}
+
+/* ============================================
    评论区 · Giscus
    ============================================ */
 

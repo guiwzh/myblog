@@ -438,23 +438,25 @@ hr::before {
   gap: 26px;
 }
 
-/* 发光能量球：多色 conic 旋转 + halo 呼吸 + 模糊柔光 */
+/* 发光能量球：清晰球体 + 顶光高光 + halo 呼吸 */
 #loading-box .spinner-box::before {
   content: '';
   width: 76px;
   height: 76px;
   border-radius: 50%;
-  background: conic-gradient(
-    from 0deg,
-    #0071e3 0deg,
-    #2997ff 80deg,
-    #a8d2ff 160deg,
-    #5e9eff 240deg,
-    #0071e3 320deg,
-    #0071e3 360deg
-  );
-  filter: blur(1.2px) saturate(140%);
-  animation: orb-spin 2.4s linear infinite, orb-glow 2.2s ease-in-out infinite;
+  background:
+    radial-gradient(circle at 30% 26%, rgba(255, 255, 255, 0.55) 0%, rgba(255, 255, 255, 0) 38%),
+    conic-gradient(
+      from 0deg,
+      #0a84ff 0deg,
+      #2997ff 60deg,
+      #5fb4ff 120deg,
+      #a8d2ff 180deg,
+      #5fb4ff 240deg,
+      #2997ff 300deg,
+      #0a84ff 360deg
+    );
+  animation: orb-spin 2.6s linear infinite, orb-glow 2.2s ease-in-out infinite;
 }
 @keyframes orb-spin {
   to { transform: rotate(360deg); }

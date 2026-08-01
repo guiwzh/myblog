@@ -646,7 +646,7 @@ Changesets 和 Turborepo 是**正交的两件事**:前者管"发什么版本",�
 - uses: pnpm/action-setup@v6
   # 注意:这里不要再写 version。根 package.json 里已经有 packageManager 字段,
   # 两处都指定版本会直接报 "Multiple versions of pnpm specified"
-- uses: actions/setup-node@v5
+- uses: actions/setup-node@v7
   with:
     node-version: 24
     cache: 'pnpm'

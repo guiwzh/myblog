@@ -103,8 +103,8 @@ hotfix/*  线上紧急修复,从 main 切出 → 合回 main 和 develop
 
 **约定**:
 
-- 全小写,用连字符(`-`)分词,不用下划线或空格。
-- 关联工单时把工单号放前面:`feature/JIRA-123-oauth-login`,方便工具自动联动。
+- 用连字符(`-`)分词,不用下划线或空格。
+- **描述部分全小写**。工单号是唯一的例外——Jira 之类的 issue key 本身就是大写,保持原样平台才能正确识别。关联工单时把它放前面:`feature/JIRA-123-oauth-login`,方便工具自动联动。
 - 名字要让人**不点开就知道在做什么**,避免 `feature/fix`、`feature/test2` 这种黑话。
 - 分支是短期的,合并后及时删除,保持分支列表干净。
 
@@ -141,9 +141,18 @@ hotfix/*  线上紧急修复,从 main 切出 → 合回 main 和 develop
 
 ### 3.3 各部分要点
 
-- **subject(标题行)**:祈使句("添加"而非"添加了"),不超过 50 字,结尾不加句号。把它想象成在补全 "If applied, this commit will ___"。
-- **body(正文)**:解释**为什么**这么改、背景是什么,而不是复述代码做了什么(代码本身已经说明了"怎么做")。每行不超过 72 字。
-- **footer(脚注)**:关联工单(`Closes #234`);破坏性变更必须写 `BREAKING CHANGE: <说明>`,这会触发 MAJOR 版本号 +1。
+- **subject(标题行)**:祈使句("添加"而非"添加了"),结尾不加句号。把它想象成在补全 "If applied, this commit will ___"。
+  长度**不超过 50 个字符**——注意单位是**字符列宽,不是汉字个数**。50 这个数字源自英文提交信息,而一个汉字在终端里占 2 列,所以**中文标题实际要压到 25 字以内**,否则 `git log --oneline` 和各平台的提交列表都会截断。
+- **body(正文)**:解释**为什么**这么改、背景是什么,而不是复述代码做了什么(代码本身已经说明了"怎么做")。每行不超过 72 列(中文约 36 字)。
+- **footer(脚注)**:关联工单(`Closes #234`);破坏性变更写 `BREAKING CHANGE: <说明>`,会触发 MAJOR 版本号 +1。
+
+**破坏性变更还有个更常用的写法**:在 type / scope 后面加一个 `!`,规范同样承认:
+
+```
+feat(api)!: 用户接口返回结构改为包裹式
+```
+
+两种写法对工具而言等价,但 `!` 有个实际优势:**它在标题行上**。如果团队用 squash merge(见 6.3 节),PR 内各条提交的 footer 很容易在压缩过程中丢失,标题行却一定会保留。所以推荐 **`!` 做标记 + footer 写清影响** 两者一起用。
 
 ### 3.4 示例
 
@@ -264,7 +273,20 @@ feature:          └─A'─B'   ← A、B 被重写为 A'、B'
 所以:
 - 在自己的 `feature/*` 分支上 `git rebase origin/main` —— ✅ 安全,推荐。
 - 在 `main` / `develop` 等共享分支上 rebase —— ❌ 绝对禁止。
-- `git pull` 默认会产生 merge commit,改用 `git pull --rebase`(或全局配置 `git config --global pull.rebase true`)让拉取也保持线性。
+- **`git pull` 在分叉时的行为,Git 现在要求你自己表态**。从 **Git 2.34(2021-11)** 起,如果没配过 `pull.rebase` / `pull.ff`,一旦本地和远端分叉,`git pull` 会直接失败退出:
+
+  ```
+  hint: You have divergent branches and need to specify how to reconcile them.
+  fatal: Need to specify how to reconcile divergent branches.
+  ```
+
+  这其实是好事——Git 不再替你默默选一个策略。按本文的原则统一配成 rebase 就行:
+
+  ```bash
+  git config --global pull.rebase true
+  ```
+
+  (只有在老版本 Git、或显式配成 `pull.rebase false` 时,拉取才会产生 merge commit。网上大量"`git pull` 默认会 merge"的说法,是 2021 年之前的经验。)
 
 ### 5.3 Rebase 后推送
 
@@ -417,6 +439,18 @@ git revert -m 1 <merge-commit-hash>     # -m 1 表示保留第一父分支(主�
 
 `revert` 不删除历史,而是新增一个撤销提交,**对共享分支是安全的**。
 
+> ⚠️ **revert 掉一个 merge 之后,那条分支就再也 merge 不回来了。** 这是 revert 最容易翻车的地方,务必知道。
+>
+> 原因是:revert 只是追加了一个反向提交,**那次合并在 Git 眼里依然发生过**。等你把分支上的问题修好、再 merge 一次时,Git 认为原先那些提交早就合过了,只会带回 revert 之后的新提交——先前的改动仍然停留在"被撤销"状态。表现出来就是:分支明明合进来了,功能却还是没有,而且没有任何冲突或报错提示你。
+>
+> 正确做法是先**把那个 revert 再 revert 一次**,把原改动恢复回来,再在此基础上继续修:
+>
+> ```bash
+> git revert <那条 revert 提交的 hash>
+> ```
+>
+> Git 官方专门为此写过一篇 `howto/revert-a-faulty-merge`。结论:**能 revert 单个提交就别 revert merge**;确实要 revert merge,就把这条记牢。
+
 **方式二:回退到上一个 tag 重新部署**
 
 如果你的部署是基于 tag 的,最快的回滚往往是直接用上一个稳定 tag 重新部署,代码层面再从容 revert。
@@ -462,7 +496,19 @@ Git 不擅长存储大的二进制文件(每次改动都会存一份完整副本
 git lfs install
 git lfs track "*.psd"
 git add .gitattributes
+git commit -m "chore: 用 LFS 托管 psd 文件"   # 别漏了这步,不提交等于没配
 ```
+
+两个必须知道的前提:
+
+- **`.gitattributes` 一定要提交**。它才是真正生效的配置文件,只 `git add` 不 commit,队友那边完全不生效。
+- **`lfs track` 只对之后新增的文件生效**。已经躺在历史里的大文件不会被追溯转换,仓库该多大还是多大。清理存量要用:
+
+  ```bash
+  git lfs migrate import --include="*.psd" --everything
+  ```
+
+  它会**重写历史**,代价和 9.4 节的 `filter-repo` 一样——需要 force push 并通知所有人重新 clone。所以 LFS 最好在项目早期就配上,别等仓库肿了再补救。
 
 ### 9.6 Monorepo 的注意点
 
@@ -484,6 +530,8 @@ git add .gitattributes
 - 要求分支与主干保持最新(up to date)再合并。
 - 禁止 force push 和删除分支。
 
+> 💡 「保持最新再合并」这条要留意代价:main 每合入一个 PR,其余所有 PR 都得重新同步一次并重跑 CI。团队规模一上来就会退化成「谁手快谁先合,其他人无限重排」。GitHub 的 **merge queue**(GitLab 叫 merge train)正是为此设计的——把待合并的 PR 排成队列,自动依次重放并验证,人不用手动追。小团队可以先开着这条规则,等排队开始疼了再上 merge queue。
+
 ### 10.2 提交规范自动校验(本地 Git Hook)
 
 用 `husky` + `commitlint` 在提交时自动拦截不合规的提交信息;用 `lint-staged` 在提交前只对暂存文件跑 Lint / Format,快且无遗漏。
@@ -501,8 +549,12 @@ npx husky init   # 创建 .husky/ 目录,并自动把 prepare 脚本写成 "husk
 echo 'npx --no -- commitlint --edit "$1"' > .husky/commit-msg
 
 # 写入 pre-commit 钩子:提交前对暂存文件跑 lint-staged
+# 注意这里是"覆盖"不是"新建"——husky init 会预先生成一个内容为 `npm test` 的
+# .husky/pre-commit,不覆盖掉的话每次提交都会去跑 npm test,然后失败
 echo 'npx lint-staged' > .husky/pre-commit
 ```
+
+> 💡 husky v9 的钩子文件**不需要**可执行权限,也不需要顶部那两行 `#!/usr/bin/env sh` 和 `. "$(dirname -- "$0")/_/husky.sh"`——`husky init` 会把 `core.hooksPath` 指向 `.husky/_`,真正被 Git 调用的是那个目录里的 shim,你写的文件只是被它 source 进去。网上大量教程还带着那两行和 `chmod +x`,那是 v8 及更早的写法。
 
 ```jsonc
 // package.json(husky init 会自动写好 prepare 脚本)
@@ -515,11 +567,58 @@ echo 'npx lint-staged' > .husky/pre-commit
 ```
 
 ```js
-// commitlint.config.js
+// commitlint.config.js —— 注意:这是 CommonJS 写法
 module.exports = { extends: ['@commitlint/config-conventional'] };
 ```
 
-### 10.3 自动化发布
+> ⚠️ **如果你的 `package.json` 里有 `"type": "module"`,上面这段会直接炸**:
+>
+> ```
+> ReferenceError: module is not defined in ES module scope
+> husky - commit-msg script failed (code 1)
+> ```
+>
+> 失败模式很有迷惑性:**连完全合规的提交信息也一起被拦下**,而且报的是一堆 Node 堆栈,很难第一时间联想到是配置文件的模块格式问题——多数人会先去怀疑 commitlint 规则写错了。
+>
+> 两种修法任选其一:
+>
+> ```js
+> // 方案一:文件名改成 commitlint.config.cjs,内容一个字不用动
+> module.exports = { extends: ['@commitlint/config-conventional'] };
+> ```
+>
+> ```js
+> // 方案二:保持 .js,改写成 ESM
+> export default { extends: ['@commitlint/config-conventional'] };
+> ```
+
+### 10.3 CI 侧兜底:真正的强制点在这里
+
+上面那套本地 Hook 有个必须说清楚的前提:**它拦不住存心绕过的人**。
+
+```bash
+git commit --no-verify -m "随手写的"    # 跳过所有 Git Hook
+HUSKY=0 git commit -m "随手写的"        # husky 自己就提供了这个开关
+```
+
+而且还有一种更常见的情况:新同事 clone 下来还没跑过 `pnpm install`(`prepare` 脚本没执行),钩子压根就没装上——不是他故意绕,是根本不存在。
+
+所以本地 Hook 的定位是**给自己人提供即时反馈**(提交那一刻就报错,而不是等 CI 跑十分钟再告诉你),**它不是强制手段**。真正的强制点必须放在服务端:
+
+```yaml
+# GitHub Actions:校验 PR 里每一条提交的信息格式
+- uses: actions/checkout@v7
+  with:
+    fetch-depth: 0        # commitlint 要比对区间,浅克隆会漏提交
+- run: npm ci
+- run: npx commitlint --from origin/${{ github.base_ref }} --to HEAD --verbose
+```
+
+再把这个 job 加进 10.1 的**必需检查**列表。这样本地绕过去也没用——PR 合不进来。
+
+**这个规律是通用的**:任何"靠开发者在本地执行"的规范,都只能算提效工具;能真正落地的强制,只可能来自 CI + 分支保护。
+
+### 10.4 自动化发布
 
 接入 `semantic-release`:它读取 Conventional Commits,自动决定版本号、打 tag、生成 CHANGELOG、发布——彻底消除"忘了升版本号"和"CHANGELOG 写得乱"的问题。
 

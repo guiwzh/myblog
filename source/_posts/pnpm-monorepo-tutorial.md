@@ -13,7 +13,7 @@ cover: https://picsum.photos/seed/pnpm-monorepo-tutorial/800/450
 ---
 
 > 适用版本：pnpm 10 / 11,Node.js 22 / 24 (LTS)  
-> 最后更新:2026 年 5 月
+> 最后更新:2026 年 8 月
 
 ## 前言
 
@@ -41,7 +41,7 @@ pnpm 通过**硬链接(hard link)+ 内容寻址存储**实现了节省磁盘空�
 
 ### 1. 安装 Node.js
 
-推荐使用 **Node.js 24 LTS**(活跃支持至 2028-04)或 Node.js 22(维护期 LTS)。可以通过 [nvm](https://github.com/nvm-sh/nvm) 管理多版本:
+推荐使用 **Node.js 24 LTS**(活跃支持至 2026-10,之后进入维护期,2028-04 EOL)或 Node.js 22(已在维护期,2027-04 EOL)。可以通过 [nvm](https://github.com/nvm-sh/nvm) 管理多版本:
 
 ```bash
 nvm install 24
@@ -52,17 +52,24 @@ nvm use 24
 
 ### 2. 安装 pnpm
 
-推荐使用 corepack(Node.js 自带),它会根据项目锁定的版本自动管理 pnpm:
+如果你在 **Node.js 24 或更早**的版本上,可以用 corepack 按项目锁定 pnpm 版本:
 
 ```bash
 corepack enable
-corepack prepare pnpm@latest --activate
+corepack use pnpm@11        # 顺便把 packageManager 字段写进 package.json
 ```
+
+> ⚠️ **corepack 正在退场**:Node.js TSC 已投票停止分发 corepack,**Node 25+ 的官方发行版不再自带**,Node 24 中也仅作为实验特性保留。所以别再把"corepack 是 Node 自带的"当成理所当然。如果你的环境里没有它,直接全局装 pnpm 就行:
+>
+> ```bash
+> npm install -g pnpm@11
+> # 或者单独把 corepack 装回来:npm install -g corepack
+> ```
 
 验证安装:
 
 ```bash
-pnpm --version    # 期望 10.x 或 11.x
+pnpm --version    # 期望 11.x(本文示例基于 11.18)
 ```
 
 ---
@@ -86,7 +93,7 @@ pnpm init
   "name": "my-monorepo",
   "version": "0.0.0",
   "private": true,
-  "packageManager": "pnpm@10.11.0",
+  "packageManager": "pnpm@11.18.0",
   "engines": {
     "node": ">=22",
     "pnpm": ">=10"
@@ -99,7 +106,7 @@ pnpm init
 }
 ```
 
-> 💡 **关于版本字段**:`packageManager` 字段配合 corepack,可以让所有协作者自动使用同一个 pnpm 版本。pnpm 11 的 `pnpm init` 默认改写到 `devEngines.packageManager`,两者 corepack 都识别,保留 `packageManager` 兼容性更好。
+> 💡 **关于版本字段**:`packageManager` 字段配合 corepack,可以让所有协作者自动使用同一个 pnpm 版本。pnpm 11 的 `pnpm init` 改为写入 `devEngines.packageManager`——corepack 只在**没有**顶层 `packageManager` 字段时才回退去读它,而且要求 `devEngines.packageManager.version` 是精确版本。目前保留 `packageManager` 兼容性更好:CI 里的 `pnpm/action-setup` 读的也是这个字段。
 
 ### 3. 创建 `pnpm-workspace.yaml`
 
@@ -147,7 +154,7 @@ mkdir -p packages/utils && cd packages/utils
 pnpm init
 ```
 
-编辑 `packages/utils/package.json`,注意 **`"type": "module"`** 必不可少(否则 ESM 语法会报错):
+编辑 `packages/utils/package.json`。注意 **`"type": "module"`**——本教程全程用 ESM 语法,缺了它 Node 会按 CJS 解析并报语法错误:
 
 ```json
 {
@@ -155,13 +162,16 @@ pnpm init
   "version": "0.1.0",
   "type": "module",
   "main": "./src/index.js",
-  "types": "./src/index.d.ts",
   "scripts": {
     "build": "echo 'build utils'",
     "test": "echo 'test utils'"
   }
 }
 ```
+
+> 💡 两个细节:
+> 1. pnpm 11 的 `pnpm init` 已经默认写入 `"type": "module"`,pnpm 10 及更早需要自己补。
+> 2. 这里**刻意没写 `types` 字段**。本教程的包是纯 JS,没有任何环节产出 `.d.ts`;如果 `types` 指向一个不存在的文件,TypeScript 消费方会直接报错。等你接上真正的构建(tsc / tsup)产出声明文件后再补。
 
 新建 `packages/utils/src/index.js`:
 
@@ -221,8 +231,10 @@ cd ../..
 在**根目录**,给 `@my/web` 添加对 `@my/utils` 的依赖:
 
 ```bash
-pnpm --filter @my/web add @my/utils@workspace:*
+pnpm --filter @my/web add '@my/utils@workspace:*'
 ```
+
+> ⚠️ **引号别省**。zsh(macOS 默认 shell)会把未加引号的 `*` 当成 glob 去匹配文件,匹配不到就直接报 `zsh: no matches found`,命令根本到不了 pnpm 手里。
 
 执行后,`apps/web/package.json` 的 `dependencies` 会变成:
 
@@ -241,7 +253,8 @@ pnpm --filter @my/web add @my/utils@workspace:*
 | `workspace:*` | 任意版本,发布时替换为当前版本 |
 | `workspace:^` | 替换为 `^x.y.z` |
 | `workspace:~` | 替换为 `~x.y.z` |
-| `workspace:^1.2.3` | 锁定版本 |
+| `workspace:1.2.3` | 锁定精确版本,发布时原样输出 `1.2.3` |
+| `workspace:^1.2.3` | 一个 range(要求本地包满足 `^1.2.3`),发布时原样输出 `^1.2.3` |
 
 发布到 npm 时,pnpm 会自动把 `workspace:*` 转换为实际版本号,所以**消费者完全感知不到 workspace 协议**。
 
@@ -281,13 +294,13 @@ pnpm 安装后,`node_modules` 里会同时存在**两份 React 实例**。`apps/
 
 这个陷阱并非 React 独有:
 
-- **zod**:前后端用不同版本,schema 实例在 `instanceof` 检查时失败,运行时报错
+- **zod**:前后端跨 major 用了 v3 / v4,`err instanceof z.ZodError` 之类的判断会失败,类型也不互通
 - **TypeScript**:不同包用不同版本编译,类型定义可能不兼容
 - **eslint / prettier**:版本差异导致同事之间格式化结果不同
 
 ### 2. catalog: 协议入门
 
-pnpm 9+ 引入的 `catalog:` 协议,把**需要统一的外部依赖版本集中到一处**——`pnpm-workspace.yaml`。
+pnpm 9.5 引入的 `catalog:` 协议,把**需要统一的外部依赖版本集中到一处**——`pnpm-workspace.yaml`。
 
 **第一步**:在 `pnpm-workspace.yaml` 里声明 catalog:
 
@@ -301,9 +314,9 @@ autoInstallPeers: true
 catalog:
   react: ^19.0.0
   react-dom: ^19.0.0
-  typescript: ^5.4.0
-  zod: ^3.23.0
-  vitest: ^1.5.0
+  typescript: ^7.0.0
+  zod: ^4.4.0
+  vitest: ^4.1.0
 ```
 
 **第二步**:在子包 `package.json` 里**只写 `catalog:`,不写具体版本号**:
@@ -328,12 +341,12 @@ catalog:
 
 ### 3. 升级流程
 
-想把 React 从 19.0.0 升到 19.1.0,**只需要改一处**:
+想把 React 的版本基线从 19.0 抬到 19.2,**只需要改一处**:
 
 ```yaml
 catalog:
-  react: ^19.1.0      # 改这里
-  react-dom: ^19.1.0  # 配套更新
+  react: ^19.2.0      # 改这里
+  react-dom: ^19.2.0  # 配套更新
 ```
 
 然后 `pnpm install`,所有用 `catalog:` 的子包同步获得新版本。再也不会出现"5 个 package.json 里 3 个忘了改"的情况。
@@ -391,10 +404,17 @@ apps/
 
 ```yaml
 catalog:
-  zod: ^3.23.0
+  zod: ^4.4.0
 ```
 
-**为什么必须用 catalog 而不是各自写版本?** 假设前端的 zod 是 `3.22`、后端是 `3.23`,3.23 创建的 schema 实例传到 3.22 那里做 `parse()` 时,内部的 `instanceof` 检查会失败——表面上类型一致,运行时报错。catalog 把这种风险一次性消除。
+**为什么必须用 catalog 而不是各自写版本?** 先澄清一个很常见的误解:如果前端写 `^4.3.0`、后端写 `^4.4.0`,这两个 range 是**兼容**的,pnpm 解析时会 dedupe 到同一个版本,`node_modules` 里只有一份 zod——**这种情况根本不会出事**。
+
+真正会翻车的是另外两种:
+
+1. **跨 major**:前端还停在 `^3.23.0`,后端已经升到 `^4.4.0`。此时 node_modules 里实打实存在两份 zod。`@my/schemas` 用 zod 4 定义的 schema 传到前端,`err instanceof z.ZodError` 会返回 `false`(两个 `ZodError` 压根不是同一个类),TypeScript 层面两套 `ZodType` 的类型也不互相兼容,`.parse()` 的返回值推断直接崩。
+2. **写死精确版本**:前端 `"zod": "3.23.8"`、后端 `"zod": "3.24.1"`,没有 caret 兜底,pnpm 只能各装各的。
+
+这两种情况在多人协作里非常容易发生:某个同事在自己那个包里随手 `pnpm add zod` 拉到最新 major,CI 全绿,直到运行时才炸。catalog 的价值就是把"升 major"从某个包的局部行为,变成一次显式的、全仓库同步的动作。
 
 ### 6. 哪些依赖应该放进 catalog?
 
@@ -417,7 +437,7 @@ catalog:
 - **生产依赖升级**(如 react)→ 给所有使用它的子包打 `patch` changeset(消费方应该感知)
 - **开发依赖升级**(如 vitest、prettier)→ 通常不需要 changeset(不影响发布产物)
 
-可以在团队约定里写清楚,或者在 `.changeset/config.json` 的 `ignore` 中跳过 devDependencies 触发的版本变更。
+> ⚠️ 别指望用 `.changeset/config.json` 的 `ignore` 来做这件事——它是一个**包名列表**(支持 glob),语义是"这些包即使被 changeset 引用也不发布",和 devDependencies 毫无关系。而且 changeset 文件本来就是人手写的,升级 devDependencies 不会自动触发任何 bump。真正控制内部依赖 range 如何更新的选项叫 `updateInternalDependencies`(取值 `patch` / `minor`)。所以这一条靠的是**团队约定**,不是配置项。
 
 ---
 
@@ -444,14 +464,20 @@ pnpm --filter './packages/**' test
 # 运行 @my/web 及其所有依赖的包
 pnpm --filter @my/web... build
 
-# 运行依赖于 @my/utils 的所有包(反向)
+# 运行 @my/utils 自身 + 所有依赖它的包(反向)
 pnpm --filter ...@my/utils build
 
-# 只在相对 origin/main 有变更的包中运行
+# 只在相对 origin/main 有变更的包、以及它们的下游中运行
 pnpm --filter '...[origin/main]' test
+
+# 只要变更包本身,不带下游
+pnpm --filter '[origin/main]' test
 ```
 
-> 💡 `...` 的位置很关键:放在包名**后面**表示"及其依赖",放在**前面**表示"依赖它的包",放在中括号语法里表示"git 变更范围内的包及其下游"。
+> 💡 `...` 的位置很关键,而且**两种写法都包含目标包自身**:
+> - `<pkg>...`(后缀)= 该包 **+ 它的依赖**(上游)
+> - `...<pkg>`(前缀)= 该包 **+ 依赖它的包**(下游)
+> - `[origin/main]` = 变更包本身;加上前缀写成 `...[origin/main]` 才会带上它们的下游
 
 ### 3. 给根目录加依赖
 
@@ -504,7 +530,7 @@ packages/config/
 别忘了添加依赖:
 
 ```bash
-pnpm --filter @my/utils add -D @my/config@workspace:*
+pnpm --filter @my/utils add -D '@my/config@workspace:*'
 ```
 
 ---
@@ -547,10 +573,16 @@ pnpm changeset publish    # 发布所有有版本变更的包,并打 git tag
 
 **为什么用 `pnpm changeset publish` 而不是 `pnpm -r publish`?**
 
-- `changeset publish` 只发布**版本号有变化**的包(changeset 已消费),自动跳过未改动的包;并会自动 `git tag` 每个发布的包。
-- `pnpm -r publish` 会尝试发布**所有非 `private` 包**,对已发布的版本号会失败但不优雅。
+先排除一个流传很广的误解:`pnpm -r publish` **不会**在遇到已发布版本时报错。官方的说法是"发布所有在 registry 上还不存在该版本的包",已经发过的会安静跳过,想强行重发才需要 `--force`。
 
-> 💡 `pnpm changeset version` 也会自动把 `workspace:*` 协议转换为实际版本号写入发布的 `package.json`。
+两者真正的区别在别处:
+
+- `changeset publish` 的依据是**已消费的 changeset 记录**,并会自动为每个发布的包打 `git tag`,和 changelog 生成串在同一条流水线上。
+- `pnpm -r publish` 的依据是**查 registry 比对版本号**,不打 tag、不管 changelog。
+
+如果你已经在用 Changesets,就没理由绕开它的 publish。
+
+> 💡 **协议替换发生在打包那一刻,不在 `changeset version`**。`changeset version` 只做两件事:bump 版本号、更新内部依赖的 range(并且**保留** `workspace:` 前缀)。真正把 `workspace:*` 和 `catalog:` 换成实际版本号的是 `pnpm publish` / `pnpm pack`——这也正是这两个协议对下游消费者始终透明的原因。
 
 ---
 
@@ -558,7 +590,9 @@ pnpm changeset publish    # 发布所有有版本变更的包,并打 git tag
 
 ### 1. `.npmrc` 推荐配置
 
-**重要**:从 pnpm 11 起,`.npmrc` **只允许放认证和 registry 相关配置**,其他设置必须放到 `pnpm-workspace.yaml`。
+**重要**:从 pnpm 11 起,`.npmrc` **只允许放认证和 registry 相关配置**,其他设置必须放到 `pnpm-workspace.yaml`(或全局的 `~/.config/pnpm/config.yaml`)。
+
+同一次改动里还有一个容易漏掉的点:pnpm 11 **不再读取 `npm_config_*` 环境变量**,要用 `pnpm_config_*` 前缀。CI 里如果靠环境变量注入过 pnpm 配置,升级时记得一起改。
 
 在根目录新建 `.npmrc`:
 
@@ -578,7 +612,7 @@ autoInstallPeers: true
 # blockExoticSubdeps: true       # pnpm 11 默认 true
 ```
 
-> ⚠️ 如果你还在 pnpm 9 或 10,`.npmrc` 仍然支持完整配置,但建议提前迁移以兼容 v11。
+> ⚠️ 如果你还在 pnpm 10,`.npmrc` 仍然支持完整配置,但建议提前迁移以兼容 v11。
 
 ### 2. `.gitignore`
 
@@ -609,10 +643,10 @@ Changesets 和 Turborepo 是**正交的两件事**:前者管"发什么版本",�
 
 ```yaml
 # GitHub Actions 示例
-- uses: pnpm/action-setup@v4
-  with:
-    version: 10
-- uses: actions/setup-node@v4
+- uses: pnpm/action-setup@v6
+  # 注意:这里不要再写 version。根 package.json 里已经有 packageManager 字段,
+  # 两处都指定版本会直接报 "Multiple versions of pnpm specified"
+- uses: actions/setup-node@v5
   with:
     node-version: 24
     cache: 'pnpm'
@@ -635,9 +669,9 @@ Changesets 和 Turborepo 是**正交的两件事**:前者管"发什么版本",�
 
 - **ESM/CJS 混用**:所有用 `import`/`export` 的包必须显式声明 `"type": "module"`,否则在 Node.js 下运行报语法错误。
 - **包名冲突**:所有内部包推荐用统一 scope(如 `@my/`),避免污染全局命名空间。
-- **循环依赖**:`pnpm -r` 会检测并报错,及时拆分公共逻辑。
+- **循环依赖**:pnpm 默认只打一条 `There are cyclic workspace dependencies` 的 **WARN**,命令照跑,只是不再保证脚本按拓扑顺序执行——这比直接报错更危险,因为构建产物可能悄悄是错的。想让它直接失败,在 `pnpm-workspace.yaml` 里设 `disallowWorkspaceCycles: true`。
 - **路径别名**:TypeScript 的 `paths` 配置在 monorepo 中容易出问题,**优先使用 `workspace:` 协议而不是路径别名**。
-- **node_modules 位置**:pnpm 会同时在根目录和子包中创建 `node_modules`,这是正常的,子包里只是符号链接。
+- **node_modules 位置**:pnpm 会同时在根目录和子包中创建 `node_modules`,这是正常的。子包的 `node_modules` 本身是真实目录,里面装的**条目**才是指向根部 `.pnpm` 存储的符号链接。
 
 ---
 

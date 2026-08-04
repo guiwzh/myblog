@@ -1,0 +1,23 @@
+<svg viewBox="0 0 680 300" width="680" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .bg{fill:#FAFBFC;stroke:#E3E8EF;stroke-width:1}
+    .fr{fill:none;stroke:#9AA6B8;stroke-width:1;stroke-dasharray:4 4;opacity:.75}
+    .g{fill:#EAEDF1;stroke:#CDD5DF;stroke-width:1}
+    .tl{fill:#E4F1F2;stroke:#0C7A85;stroke-width:1}
+    .am{fill:#F5EBDA;stroke:#B5730A;stroke-width:1}
+    .ct{fill:#F7E2E0;stroke:#C63F38;stroke-width:1}
+    .gd{stroke:#9AA6B8;stroke-width:1;stroke-dasharray:3 4;opacity:.55}
+    text{font-family:-apple-system,"Noto Sans CJK SC","PingFang SC","Microsoft YaHei","Segoe UI",sans-serif}
+    .t{font-size:13px;font-weight:600;fill:#2A3646}
+    .cap{font-size:12px;fill:#6B7789}
+    .l{font-size:11px;fill:#6B7789;font-family:ui-monospace,Menlo,Consolas,monospace}
+    .lt{font-size:11px;fill:#0A5A63;font-family:ui-monospace,Menlo,Consolas,monospace}
+    .la{font-size:11px;fill:#8A5806;font-family:ui-monospace,Menlo,Consolas,monospace}
+    .ann{font-size:11px;fill:#6B7789}
+  </style>
+  <defs>
+    <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M2 1L8 5L2 9" fill="none" stroke="#6B7789" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+  </defs>
+<rect class="bg" x="0.5" y="0.5" width="679" height="299" rx="10"/><text class="t" x="340" y="38" text-anchor="middle" dominant-baseline="central">两列共享 Grid：同一行左右对齐</text><rect class="fr" x="150" y="60" width="380" height="210" rx="6"/><rect class="g" x="160" y="70" width="360" height="42" rx="4"/><text class="l" x="340" y="91" text-anchor="middle" dominant-baseline="central">grid-column: 1 / -1  · 通栏</text><line class="gd" x1="140" y1="120" x2="540" y2="120" /><rect class="g" x="160" y="128" width="176" height="66" rx="4"/><text class="l" x="248" y="161" text-anchor="middle" dominant-baseline="central">auto · 内容驱动</text><rect class="g" x="344" y="128" width="176" height="66" rx="4"/><rect class="tl" x="356" y="138" width="96" height="22" rx="4"/><text class="la" x="432" y="182" text-anchor="middle" dominant-baseline="central">↑ 被拉伸留白</text><line class="gd" x1="140" y1="202" x2="540" y2="202" /><rect class="tl" x="160" y="210" width="176" height="50" rx="4"/><rect class="tl" x="344" y="210" width="176" height="50" rx="4"/><text class="lt" x="248" y="235" text-anchor="middle" dominant-baseline="central">1fr · 吸收剩余</text><text class="lt" x="432" y="235" text-anchor="middle" dominant-baseline="central">1fr · 吸收剩余</text><text class="cap" x="340" y="288" text-anchor="middle" dominant-baseline="central">行由两列共享 → 水平线对齐；末行 1fr 吸收剩余（代价：同行矮卡被拉伸）</text></svg>

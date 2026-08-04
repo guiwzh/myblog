@@ -54,6 +54,14 @@ prismjs:
   line_number: true
   tab_replace: ''
 
+# Markdown 渲染 --------------------------------------------------------
+# postAsset 必须为 true，文章内 ![](xxx.svg) 这类相对路径才会被解析到
+# 同名 asset 目录（配合上面的 post_asset_folder: true）；否则会被当成
+# 站点根路径，渲染成 /xxx.svg 导致 404
+marked:
+  prependRoot: true
+  postAsset: true
+
 # 首页设置 -------------------------------------------------------------
 index_generator:
   path: ''

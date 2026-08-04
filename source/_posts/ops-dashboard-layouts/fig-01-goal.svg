@@ -1,0 +1,23 @@
+<svg viewBox="0 0 680 300" width="680" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .bg{fill:#FAFBFC;stroke:#E3E8EF;stroke-width:1}
+    .fr{fill:none;stroke:#9AA6B8;stroke-width:1;stroke-dasharray:4 4;opacity:.75}
+    .g{fill:#EAEDF1;stroke:#CDD5DF;stroke-width:1}
+    .tl{fill:#E4F1F2;stroke:#0C7A85;stroke-width:1}
+    .am{fill:#F5EBDA;stroke:#B5730A;stroke-width:1}
+    .ct{fill:#F7E2E0;stroke:#C63F38;stroke-width:1}
+    .gd{stroke:#9AA6B8;stroke-width:1;stroke-dasharray:3 4;opacity:.55}
+    text{font-family:-apple-system,"Noto Sans CJK SC","PingFang SC","Microsoft YaHei","Segoe UI",sans-serif}
+    .t{font-size:13px;font-weight:600;fill:#2A3646}
+    .cap{font-size:12px;fill:#6B7789}
+    .l{font-size:11px;fill:#6B7789;font-family:ui-monospace,Menlo,Consolas,monospace}
+    .lt{font-size:11px;fill:#0A5A63;font-family:ui-monospace,Menlo,Consolas,monospace}
+    .la{font-size:11px;fill:#8A5806;font-family:ui-monospace,Menlo,Consolas,monospace}
+    .ann{font-size:11px;fill:#6B7789}
+  </style>
+  <defs>
+    <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M2 1L8 5L2 9" fill="none" stroke="#6B7789" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+  </defs>
+<rect class="bg" x="0.5" y="0.5" width="679" height="299" rx="10"/><text class="t" x="150" y="38" text-anchor="middle" dominant-baseline="central">自然堆叠：底部参差、下方留白</text><rect class="fr" x="44" y="60" width="252" height="204" rx="6"/><rect class="g" x="54" y="70" width="112" height="36" rx="4"/><rect class="g" x="54" y="114" width="112" height="48" rx="4"/><rect class="g" x="54" y="170" width="112" height="34" rx="4"/><rect class="g" x="174" y="70" width="112" height="52" rx="4"/><rect class="g" x="174" y="130" width="112" height="42" rx="4"/><rect class="g" x="174" y="180" width="112" height="40" rx="4"/><line class="gd" x1="54" y1="228" x2="286" y2="228" /><text class="ann" x="170" y="242" text-anchor="middle" dominant-baseline="central">↕ 未对齐 / 未铺满</text><text class="cap" x="150" y="284" text-anchor="middle" dominant-baseline="central">内容决定高度，两列各自堆叠</text><text class="t" x="528" y="38" text-anchor="middle" dominant-baseline="central">目标：底部对齐、正好铺满</text><rect class="fr" x="384" y="60" width="252" height="204" rx="6"/><rect class="g" x="394" y="70" width="112" height="36" rx="4"/><rect class="tl" x="394" y="114" width="112" height="140" rx="4"/><text class="lt" x="450" y="184" text-anchor="middle" dominant-baseline="central">flex:1</text><rect class="g" x="514" y="70" width="112" height="52" rx="4"/><rect class="g" x="514" y="130" width="112" height="42" rx="4"/><rect class="tl" x="514" y="180" width="112" height="74" rx="4"/><text class="lt" x="570" y="217" text-anchor="middle" dominant-baseline="central">flex:1</text><text class="cap" x="528" y="284" text-anchor="middle" dominant-baseline="central">弹性卡吸收剩余高度 → 底边齐平、铺满一屏</text></svg>

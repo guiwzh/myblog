@@ -1,5 +1,5 @@
 ---
-title: Token 该放在哪里？拆解大厂六种主流登录方案
+title: Web 登录方案全景：从双 Token 到 SSO、OAuth 与扫码登录
 date: 2026-10-20 10:00:00
 categories:
   - 前端

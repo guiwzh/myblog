@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 486" width="760" height="486" font-family="-apple-system, BlinkMacSystemFont, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Noto Sans CJK SC', 'Noto Sans SC', 'Source Han Sans SC', sans-serif" font-size="12" role="img" aria-label="token 从不经过浏览器：code 在服务端换成身份">
+  <title>token 从不经过浏览器：code 在服务端换成身份</title>
+  <defs>
+    <marker id="oa-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0 0L10 5L0 10z" fill="#9aa1ab"/>
+    </marker>
+    <marker id="oa-arrow-accent" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+      <path d="M0 0L10 5L0 10z" fill="#49b1f5"/>
+    </marker>
+  </defs>
+
+  <rect x="0.5" y="0.5" width="759" height="485" rx="12" fill="#ffffff" stroke="#e5e7eb"/>
+
+  <text x="24" y="34" font-size="15" font-weight="600" fill="#1f2328">token 从不经过浏览器：code 在服务端换成身份</text>
+  <text x="24" y="54" font-size="11.5" fill="#6b7280">微信网站扫码登录（OAuth 2.0 授权码模式） · 实线是请求，虚线是响应或重定向</text>
+
+  <!-- 图例 -->
+  <line x1="24" y1="77" x2="52" y2="77" stroke="#9aa1ab" stroke-width="1.25"/>
+  <text x="60" y="81" font-size="11.5" fill="#6b7280">前端通道：经过浏览器跳转</text>
+  <line x1="232" y1="77" x2="260" y2="77" stroke="#49b1f5" stroke-width="2"/>
+  <text x="268" y="81" font-size="11.5" fill="#6b7280">后端通道：服务端直连</text>
+
+  <!-- 参与者 -->
+  <g fill="#ffffff" stroke="#c9ced6">
+    <rect x="56" y="96" width="128" height="44" rx="8"/>
+    <rect x="316" y="96" width="128" height="44" rx="8"/>
+    <rect x="576" y="96" width="128" height="44" rx="8"/>
+  </g>
+  <g text-anchor="middle" font-size="13" font-weight="600" fill="#1f2328">
+    <text x="120" y="115">浏览器</text>
+    <text x="380" y="115">你的后端</text>
+    <text x="640" y="115">微信</text>
+  </g>
+  <g text-anchor="middle" font-size="11.5" fill="#6b7280">
+    <text x="120" y="132">用户</text>
+    <text x="380" y="132">持有 AppSecret</text>
+    <text x="640" y="132">授权服务器</text>
+  </g>
+
+  <!-- 生命线 -->
+  <g stroke="#c9ced6" stroke-dasharray="4 4">
+    <line x1="120" y1="140" x2="120" y2="462"/>
+    <line x1="380" y1="140" x2="380" y2="462"/>
+    <line x1="640" y1="140" x2="640" y2="462"/>
+  </g>
+
+  <!-- 前端通道：请求 -->
+  <g fill="none" stroke="#9aa1ab" stroke-width="1.25" marker-end="url(#oa-arrow)">
+    <path d="M120 174H380"/>
+    <path d="M120 238H640"/>
+    <path d="M120 346H380"/>
+  </g>
+  <!-- 前端通道：响应与重定向 -->
+  <g fill="none" stroke="#9aa1ab" stroke-width="1.25" stroke-dasharray="5 4" marker-end="url(#oa-arrow)">
+    <path d="M380 206H120"/>
+    <path d="M640 314H120"/>
+    <path d="M380 442H120"/>
+  </g>
+  <!-- 后端通道 -->
+  <path d="M380 378H640" fill="none" stroke="#49b1f5" stroke-width="2" marker-end="url(#oa-arrow-accent)"/>
+  <path d="M640 410H380" fill="none" stroke="#49b1f5" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#oa-arrow-accent)"/>
+
+  <!-- 用户在手机上确认 -->
+  <rect x="548" y="254" width="184" height="32" rx="6" fill="#f6f8fa" stroke="#c9ced6"/>
+  <text x="640" y="274" text-anchor="middle" fill="#1f2328">用户用手机微信扫码并确认</text>
+
+  <!-- 消息说明 -->
+  <g text-anchor="middle" fill="#1f2328">
+    <text x="250" y="167">点击「微信登录」</text>
+    <text x="250" y="199">生成 state，302 到微信授权页</text>
+    <text x="250" y="231">打开授权页，展示二维码</text>
+    <text x="250" y="307">302 回调地址，带上 code 和 state</text>
+    <text x="250" y="339">携带 code 和 state</text>
+    <text x="510" y="371" font-weight="600">code + AppSecret 换 token</text>
+    <text x="510" y="403">返回 access_token、openid</text>
+    <text x="250" y="435">校验通过，签发自己的登录态</text>
+  </g>
+</svg>

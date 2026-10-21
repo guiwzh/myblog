@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 716" width="760" height="716" font-family="-apple-system, BlinkMacSystemFont, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Noto Sans CJK SC', 'Noto Sans SC', 'Source Han Sans SC', sans-serif" font-size="12" role="img" aria-label="第二个系统不用再输密码：认证中心凭 TGC 直接签发新 ST">
+  <title>第二个系统不用再输密码：认证中心凭 TGC 直接签发新 ST</title>
+  <defs>
+    <marker id="cas-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0 0L10 5L0 10z" fill="#9aa1ab"/>
+    </marker>
+    <marker id="cas-arrow-accent" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+      <path d="M0 0L10 5L0 10z" fill="#49b1f5"/>
+    </marker>
+  </defs>
+
+  <rect x="0.5" y="0.5" width="759" height="715" rx="12" fill="#ffffff" stroke="#e5e7eb"/>
+
+  <text x="24" y="34" font-size="15" font-weight="600" fill="#1f2328">第二个系统不用再输密码：认证中心凭 TGC 直接签发新 ST</text>
+  <text x="24" y="54" font-size="11.5" fill="#6b7280">CAS 单点登录时序 · 实线是请求，虚线是响应或重定向</text>
+
+  <!-- 参与者 -->
+  <g fill="#ffffff" stroke="#c9ced6">
+    <rect x="40" y="72" width="112" height="48" rx="8"/>
+    <rect x="232" y="72" width="112" height="48" rx="8"/>
+    <rect x="424" y="72" width="112" height="48" rx="8"/>
+    <rect x="600" y="72" width="128" height="48" rx="8"/>
+  </g>
+  <g text-anchor="middle" font-size="13" font-weight="600" fill="#1f2328">
+    <text x="96" y="92">浏览器</text>
+    <text x="288" y="92">系统 A</text>
+    <text x="480" y="92">系统 B</text>
+    <text x="664" y="92">认证中心</text>
+  </g>
+  <g text-anchor="middle" font-size="11.5" fill="#6b7280">
+    <text x="96" y="110">用户</text>
+    <text x="288" y="110">a.com</text>
+    <text x="480" y="110">b.com</text>
+    <text x="664" y="110">sso.com</text>
+  </g>
+
+  <!-- 生命线 -->
+  <g stroke="#c9ced6" stroke-dasharray="4 4">
+    <line x1="96" y1="120" x2="96" y2="692"/>
+    <line x1="288" y1="120" x2="288" y2="692"/>
+    <line x1="480" y1="120" x2="480" y2="692"/>
+    <line x1="664" y1="120" x2="664" y2="692"/>
+  </g>
+
+  <!-- 阶段 -->
+  <rect x="16" y="134" width="728" height="24" rx="6" fill="#f6f8fa"/>
+  <text x="28" y="150" font-weight="600" fill="#1f2328">① 首次访问系统 A：输入一次账号密码</text>
+  <rect x="16" y="410" width="728" height="24" rx="6" fill="#f6f8fa"/>
+  <text x="28" y="426" font-weight="600" fill="#1f2328">② 再访问系统 B：不用再输密码</text>
+
+  <!-- 请求（实线） -->
+  <g fill="none" stroke="#9aa1ab" stroke-width="1.25" marker-end="url(#cas-arrow)">
+    <path d="M96 182H288"/>
+    <path d="M96 242H664"/>
+    <path d="M96 302H288"/>
+    <path d="M288 332H664"/>
+    <path d="M96 462H480"/>
+    <path d="M96 582H480"/>
+    <path d="M480 612H664"/>
+  </g>
+  <!-- 响应与重定向（虚线） -->
+  <g fill="none" stroke="#9aa1ab" stroke-width="1.25" stroke-dasharray="5 4" marker-end="url(#cas-arrow)">
+    <path d="M288 212H96"/>
+    <path d="M664 272H96"/>
+    <path d="M664 362H288"/>
+    <path d="M288 392H96"/>
+    <path d="M480 492H96"/>
+    <path d="M664 552H96"/>
+    <path d="M664 642H480"/>
+    <path d="M480 672H96"/>
+  </g>
+  <!-- 关键一步：带着 TGC，认证中心直接放行 -->
+  <path d="M96 522H664" fill="none" stroke="#49b1f5" stroke-width="2" marker-end="url(#cas-arrow-accent)"/>
+
+  <!-- 消息说明 -->
+  <g text-anchor="middle" fill="#1f2328">
+    <text x="192" y="175">访问 a.com</text>
+    <text x="192" y="205">未登录，302 到认证中心</text>
+    <text x="380" y="235">打开登录页，输入账号密码</text>
+    <text x="380" y="265">种下 TGC，带 ST 跳回 a.com</text>
+    <text x="192" y="295">携带 ST 访问</text>
+    <text x="384" y="325">后端回源校验 ST</text>
+    <text x="384" y="355">返回用户身份</text>
+    <text x="192" y="385">建立 A 的局部会话</text>
+    <text x="192" y="455">访问 b.com</text>
+    <text x="192" y="485">未登录，302 到认证中心</text>
+    <text x="380" y="515" font-weight="600">自动带上 TGC，无需再登录</text>
+    <text x="380" y="545">直接签发新 ST，跳回 b.com</text>
+    <text x="192" y="575">携带 ST 访问</text>
+    <text x="572" y="605">后端回源校验 ST</text>
+    <text x="572" y="635">返回用户身份</text>
+    <text x="192" y="665">建立 B 的局部会话</text>
+  </g>
+</svg>

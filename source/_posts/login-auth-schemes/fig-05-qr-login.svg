@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 522" width="760" height="522" font-family="-apple-system, BlinkMacSystemFont, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Noto Sans CJK SC', 'Noto Sans SC', 'Source Han Sans SC', sans-serif" font-size="12" role="img" aria-label="扫码只改状态，点确认才放行：手机为电脑作保">
+  <title>扫码只改状态，点确认才放行：手机为电脑作保</title>
+  <defs>
+    <marker id="qr-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0 0L10 5L0 10z" fill="#9aa1ab"/>
+    </marker>
+    <marker id="qr-arrow-accent" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+      <path d="M0 0L10 5L0 10z" fill="#49b1f5"/>
+    </marker>
+  </defs>
+
+  <rect x="0.5" y="0.5" width="759" height="521" rx="12" fill="#ffffff" stroke="#e5e7eb"/>
+
+  <text x="24" y="34" font-size="15" font-weight="600" fill="#1f2328">扫码只改状态，点确认才放行：手机为电脑作保</text>
+  <text x="24" y="54" font-size="11.5" fill="#6b7280">服务端记录二维码状态，电脑端靠轮询感知变化 · 实线是请求，虚线是响应</text>
+
+  <!-- 参与者 -->
+  <g fill="#ffffff" stroke="#c9ced6">
+    <rect x="56" y="72" width="128" height="44" rx="8"/>
+    <rect x="316" y="72" width="128" height="44" rx="8"/>
+    <rect x="576" y="72" width="128" height="44" rx="8"/>
+  </g>
+  <g text-anchor="middle" font-size="13" font-weight="600" fill="#1f2328">
+    <text x="120" y="91">电脑浏览器</text>
+    <text x="380" y="91">服务端</text>
+    <text x="640" y="91">手机 App</text>
+  </g>
+  <g text-anchor="middle" font-size="11.5" fill="#6b7280">
+    <text x="120" y="108">等待登录</text>
+    <text x="380" y="108">记录二维码状态</text>
+    <text x="640" y="108">已经登录</text>
+  </g>
+
+  <!-- 生命线 -->
+  <g stroke="#c9ced6" stroke-dasharray="4 4">
+    <line x1="120" y1="116" x2="120" y2="498"/>
+    <line x1="380" y1="116" x2="380" y2="498"/>
+    <line x1="640" y1="116" x2="640" y2="498"/>
+  </g>
+
+  <!-- 请求（实线） -->
+  <g fill="none" stroke="#9aa1ab" stroke-width="1.25" marker-end="url(#qr-arrow)">
+    <path d="M120 150H380"/>
+    <path d="M120 238H380"/>
+    <path d="M640 270H380"/>
+    <path d="M120 446H380"/>
+  </g>
+  <!-- 响应（虚线） -->
+  <g fill="none" stroke="#9aa1ab" stroke-width="1.25" stroke-dasharray="5 4" marker-end="url(#qr-arrow)">
+    <path d="M380 206H120"/>
+    <path d="M380 326H120"/>
+    <path d="M380 414H120"/>
+    <path d="M380 478H120"/>
+  </g>
+  <!-- 关键一步：用户确认 -->
+  <path d="M640 358H380" fill="none" stroke="#49b1f5" stroke-width="2" marker-end="url(#qr-arrow-accent)"/>
+
+  <!-- 二维码状态 -->
+  <g fill="#ffffff" stroke="#9aa1ab">
+    <rect x="348" y="166" width="64" height="20" rx="10"/>
+    <rect x="348" y="286" width="64" height="20" rx="10"/>
+  </g>
+  <rect x="348" y="374" width="64" height="20" rx="10" fill="#eaf6fe" stroke="#49b1f5" stroke-width="1.5"/>
+  <g text-anchor="middle" font-size="11.5" fill="#1f2328">
+    <text x="380" y="180">待扫描</text>
+    <text x="380" y="300">已扫描</text>
+    <text x="380" y="388" font-weight="600">已确认</text>
+  </g>
+
+  <!-- 消息说明 -->
+  <g text-anchor="middle" fill="#1f2328">
+    <text x="250" y="143">申请二维码</text>
+    <text x="250" y="199">返回二维码 ID</text>
+    <text x="250" y="231">开始轮询状态</text>
+    <text x="510" y="263">扫码，带上 App 的登录态</text>
+    <text x="250" y="319">轮询拿到「已扫描」，显示头像</text>
+    <text x="510" y="351" font-weight="600">用户点「确认登录」</text>
+    <text x="250" y="407">轮询拿到「已确认」和一次性票据</text>
+    <text x="250" y="439">用票据换登录态</text>
+    <text x="250" y="471">签发电脑的登录态</text>
+  </g>
+</svg>

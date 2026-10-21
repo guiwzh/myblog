@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 468" width="760" height="468" font-family="-apple-system, BlinkMacSystemFont, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Noto Sans CJK SC', 'Noto Sans SC', 'Source Han Sans SC', sans-serif" font-size="13" role="img" aria-label="六种方案分属三层，分歧最大的是中间的登录态层">
+  <title>六种方案分属三层，分歧最大的是中间的登录态层</title>
+  <defs>
+    <marker id="ov-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0 0L10 5L0 10z" fill="#9aa1ab"/>
+    </marker>
+  </defs>
+
+  <rect x="0.5" y="0.5" width="759" height="467" rx="12" fill="#ffffff" stroke="#e5e7eb"/>
+
+  <text x="24" y="34" font-size="15" font-weight="600" fill="#1f2328">六种方案分属三层，分歧最大的是中间的登录态层</text>
+  <text x="24" y="54" font-size="11.5" fill="#6b7280">同一层内互相替代，不同层之间自由组合</text>
+
+  <!-- 入口层 -->
+  <rect x="16" y="76" width="728" height="96" rx="10" fill="#f6f8fa"/>
+  <text x="36" y="118" font-size="15" font-weight="600" fill="#1f2328">入口层</text>
+  <text x="36" y="138" font-size="11.5" fill="#6b7280">用户怎么证明「我是我」</text>
+
+  <g fill="#ffffff" stroke="#c9ced6">
+    <rect x="192" y="96" width="168" height="56" rx="8"/>
+    <rect x="376" y="96" width="168" height="56" rx="8"/>
+    <rect x="560" y="96" width="168" height="56" rx="8"/>
+  </g>
+  <g text-anchor="middle">
+    <text x="276" y="119" font-weight="600" fill="#1f2328">D · 第三方授权登录</text>
+    <text x="276" y="138" font-size="11.5" fill="#6b7280">微信、支付宝、Apple</text>
+    <text x="460" y="119" font-weight="600" fill="#1f2328">E · 扫码登录</text>
+    <text x="460" y="138" font-size="11.5" fill="#6b7280">已登录的手机为电脑作保</text>
+    <text x="644" y="119" font-weight="600" fill="#1f2328">F · 手机号登录</text>
+    <text x="644" y="138" font-size="11.5" fill="#6b7280">短信验证码、一键登录</text>
+  </g>
+
+  <path d="M460 176V208" fill="none" stroke="#9aa1ab" stroke-width="1.25" marker-end="url(#ov-arrow)"/>
+  <text x="474" y="196" font-size="11.5" fill="#6b7280">验明身份后，签发登录态</text>
+
+  <!-- 登录态层：本文重点 -->
+  <rect x="16" y="212" width="728" height="96" rx="10" fill="#49b1f5" fill-opacity="0.08" stroke="#49b1f5" stroke-width="1.5"/>
+  <text x="36" y="254" font-size="15" font-weight="600" fill="#1f2328">登录态层</text>
+  <text x="36" y="274" font-size="11.5" fill="#6b7280">登录后凭什么一直认得你</text>
+
+  <rect x="192" y="232" width="168" height="56" rx="8" fill="#ffffff" stroke="#9aa1ab" stroke-dasharray="4 3"/>
+  <g fill="#ffffff" stroke="#c9ced6">
+    <rect x="376" y="232" width="168" height="56" rx="8"/>
+    <rect x="560" y="232" width="168" height="56" rx="8"/>
+  </g>
+  <g text-anchor="middle">
+    <text x="276" y="255" font-weight="600" fill="#1f2328">起点 · 双 Token</text>
+    <text x="276" y="274" font-size="11.5" fill="#6b7280">token 存在 JS 能读的地方</text>
+    <text x="460" y="255" font-weight="600" fill="#1f2328">A · 服务端 Session</text>
+    <text x="460" y="274" font-size="11.5" fill="#6b7280">凭证留在服务端</text>
+    <text x="644" y="255" font-weight="600" fill="#1f2328">B · BFF 代管 Token</text>
+    <text x="644" y="274" font-size="11.5" fill="#6b7280">token 只交给服务端</text>
+  </g>
+
+  <path d="M460 312V344" fill="none" stroke="#9aa1ab" stroke-width="1.25" marker-end="url(#ov-arrow)"/>
+  <text x="474" y="332" font-size="11.5" fill="#6b7280">多个系统共用同一次登录</text>
+
+  <!-- 跨系统层 -->
+  <rect x="16" y="348" width="728" height="96" rx="10" fill="#f6f8fa"/>
+  <text x="36" y="390" font-size="15" font-weight="600" fill="#1f2328">跨系统层</text>
+  <text x="36" y="410" font-size="11.5" fill="#6b7280">换个网站还认不认你</text>
+
+  <rect x="192" y="368" width="536" height="56" rx="8" fill="#ffffff" stroke="#c9ced6"/>
+  <text x="460" y="391" text-anchor="middle" font-weight="600" fill="#1f2328">C · SSO 统一认证中心</text>
+  <text x="460" y="410" text-anchor="middle" font-size="11.5" fill="#6b7280">同父域 Cookie、CAS 票据、OIDC 身份中心</text>
+</svg>
